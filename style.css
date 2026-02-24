@@ -75,11 +75,9 @@ h2 {
   box-sizing: border-box; /* ← padding分で幅がはみ出さない */
 }
 
-
 /* スマホ対応 */
-@media (max-width: 768px){
-
-   .title_group{
+@media (max-width: 768px) {
+  .title_group {
     flex-direction: column;
     align-items: center;
     gap: 6px;
@@ -87,7 +85,7 @@ h2 {
   }
 
   /* 右固定をやめて、普通に表示 */
-  .information_group{
+  .information_group {
     position: static;
     transform: none;
     text-align: center;
@@ -96,47 +94,46 @@ h2 {
   }
 
   /* メールが長いので折り返し許可 */
-  .information_item{
+  .information_item {
     margin: 0;
-    word-break: break-word;  /* 長い文字列でも折り返す */
+    word-break: break-word; /* 長い文字列でも折り返す */
   }
 
   /* タイトルも少し小さく */
-  .title{
+  .title {
     margin: 0;
     font-size: 2rem;
   }
 
   /* fixedヘッダーの分、本文を下げる（必要なら調整） */
-  body{
+  body {
     padding-top: 150px;
   }
-}
 
-  .information_image_container{
-    flex-direction: column;  /* 横並び→縦並び */
+  .information_image_container {
+    flex-direction: column; /* 横並び→縦並び */
     gap: 16px;
     padding: 0 12px;
   }
 
-  .image{
-    width: 100%;      /* 画面いっぱい */
+  .image {
+    width: 100%; /* 画面いっぱい */
     max-width: 420px; /* 大きすぎ防止 */
     margin: 0 auto;
     display: block;
   }
 
-  .discription_container{
+  .discription_container {
     width: 100%;
   }
 
-  h2{
+  h2 {
     margin-left: 12px;
   }
 
-  .privacy_container{
+  .privacy_container {
     width: calc(100% - 24px);
-    height: 320px;          /* 好みで */
+    height: 320px; /* 好みで */
     margin: 0 12px 24px 12px;
   }
 }
