@@ -1,0 +1,76 @@
+body {
+  margin: 0;
+  padding-top: 120px; /* ← title_groupの高さ分に調整 */
+}
+
+.title {
+  font-size: 3rem;
+  text-align: center;
+}
+
+.title_group_spacing {
+  height: 200px;
+  width: 100vw;
+  background-color: aliceblue;
+}
+
+.title_group {
+  display: flex;
+  justify-content: center; /* ← 中央寄せ */
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: white;
+  width: 100vw;
+  z-index: 1000;
+}
+
+.information_group {
+  position: absolute; /* ← fixedやめる */
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.image {
+  width: 50vw;
+}
+
+.information_image_container {
+  display: flex;
+}
+
+.discription_container {
+  width: 45vw;
+  justify-items: center;
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
+  border-radius: 20px;
+}
+
+.information_item {
+}
+
+.discription {
+  padding: 20px;
+  font-size: 1.2rem;
+}
+
+h2 {
+  margin-left: 40px;
+  font-size: 2rem;
+}
+
+.privacy_container {
+  height: 300px;
+  width: 85vw;
+  border: 2px solid;
+  border-radius: 20px;
+  justify-self: center;
+  overflow-y: auto; /* ← はみ出たら縦スクロール */
+  overflow-x: hidden; /* ← 横は出ないように */
+
+  justify-self: center;
+  padding: 16px; /* ← 中身が枠にくっつかないように（好み） */
+  box-sizing: border-box; /* ← padding分で幅がはみ出さない */
+}
