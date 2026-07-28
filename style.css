@@ -1,139 +1,1664 @@
+/* ==============================
+   基本設定
+============================== */
+
+:root {
+  --background-dark: #020817;
+  --background-navy: #041426;
+  --panel-dark: #061629;
+
+  --blue: #28baff;
+  --blue-light: #87dcff;
+  --blue-border: rgba(45, 177, 255, 0.65);
+
+  --orange: #ff9500;
+  --white: #ffffff;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
 body {
+  min-width: 320px;
   margin: 0;
-  padding-top: 120px; /* ← title_groupの高さ分に調整 */
+
+  color: var(--white);
+  background:
+    radial-gradient(circle at 50% 0%, rgba(24, 81, 139, 0.25), transparent 38%),
+    var(--background-dark);
+
+    font-family:"Noto Sans JP",sans-serif;
+    font-weight:200;
+
 }
 
-.title {
-  font-size: 3rem;
-  text-align: center;
+img {
+  display: block;
+  max-width: 100%;
 }
 
-.title_group_spacing {
-  height: 200px;
-  width: 100vw;
-  background-color: aliceblue;
+a {
+  color: inherit;
+  text-decoration: none;
 }
 
-.title_group {
+/* ==============================
+   ページ全体
+============================== */
+
+.landing-page {
+  width: 100%;
+  height: 100vh;
+  min-height: 0;
+  padding: 18px;
+
+  position: relative;
+  overflow: hidden;
+
+  display: grid;
+  grid-template-rows: 65fr 35fr;
+
+  background:
+    linear-gradient(rgba(29, 144, 221, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(29, 144, 221, 0.04) 1px, transparent 1px);
+
+  background-size: 48px 48px;
+}
+
+/* ページ上部の細い青いライン */
+.landing-page::before {
+  content: "";
+
+  width: calc(100% - 72px);
+  height: 1px;
+
+  position: absolute;
+  top: 18px;
+  left: 36px;
+  z-index: 10;
+
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(70, 188, 255, 0.8),
+    rgba(70, 188, 255, 0.25),
+    transparent
+  );
+
+  box-shadow: 0 0 12px rgba(45, 183, 255, 0.6);
+}
+
+/* ==============================
+   上部メインビジュアル
+============================== */
+
+.hero-section {
+  width: 100%;
+  height: auto;
+  min-height: 0;
+  max-height: none;
+
+  position: relative;
   display: flex;
-  justify-content: center; /* ← 中央寄せ */
   align-items: center;
-  position: fixed;
+  overflow: hidden;
+
+  border-top: 1px solid rgba(53, 182, 255, 0.35);
+  border-left: 1px solid rgba(53, 182, 255, 0.18);
+
+  background: #020914;
+}
+
+
+.hero-background {
+  width: 130%;
+  max-width: none;
+  height: 100%;
+
+  position: absolute;
   top: 0;
   left: 0;
-  background-color: white;
-  width: 100vw;
-  z-index: 1000;
+
+  object-fit: cover;
+  object-position: left center;
+
+  z-index: 0;
 }
 
-.information_group {
-  position: absolute; /* ← fixedやめる */
-  right: 20px;
-  top: 50%;
-  transform: translateY(-50%);
+/* 左側を暗くして文字を読みやすくする */
+.hero-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+
+  background:
+    linear-gradient(
+      90deg,
+      rgba(1, 10, 24, 0.98) 0%,
+      rgba(1, 11, 25, 0.92) 25%,
+      rgba(1, 11, 25, 0.67) 44%,
+      rgba(1, 11, 25, 0.15) 70%,
+      rgba(1, 11, 25, 0.03) 100%
+    ),
+    linear-gradient(
+      180deg,
+      rgba(0, 6, 17, 0.18),
+      rgba(0, 6, 17, 0.08) 60%,
+      rgba(0, 6, 17, 0.4)
+    );
 }
 
-.image {
-  width: 50vw;
+/* 青い発光 */
+.blue-glow {
+  position: absolute;
+  z-index: 2;
+
+  border-radius: 50%;
+  pointer-events: none;
+
+  filter: blur(70px);
 }
 
-.information_image_container {
-  display: flex;
+.blue-glow-left {
+  width: 360px;
+  height: 360px;
+
+  left: -190px;
+  bottom: 20px;
+
+  background: rgba(0, 133, 255, 0.23);
 }
 
-.discription_container {
-  width: 45vw;
-  justify-items: center;
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.35);
-  border-radius: 20px;
+/* オレンジの発光 */
+.orange-glow {
+  width: 450px;
+  height: 450px;
+
+  position: absolute;
+  right: 13%;
+  bottom: -280px;
+  z-index: 2;
+
+  border-radius: 50%;
+  pointer-events: none;
+
+  background: rgba(255, 126, 0, 0.23);
+  filter: blur(75px);
 }
 
-.information_item {
+/* 文章部分 */
+.hero-content {
+  width: min(680px, 48%);
+  margin-left: clamp(42px, 5.5vw, 100px);
+  padding: 70px 0;
+
+  position: relative;
+  z-index: 3;
 }
 
-.discription {
-  padding: 20px;
+/* 英字タイトル */
+.game-name {
+  margin: 0 0 34px;
+
+  color: #70c4f5;
+
+  font-size: clamp(12px, 1.25vw, 18px);
+  font-weight: 700;
+
+  letter-spacing: 0.45em;
+  line-height: 1.5;
+
+  text-shadow: 0 0 14px rgba(43, 168, 255, 0.55);
+}
+
+/* 大見出し */
+.hero-title {
+  max-width: 700px;
+  margin: 0 0 34px;
+
+  color: #ffffff;
+
+  font-family: "Noto Sans JP", sans-serif;
+  font-size: clamp(36px, 4.3vw, 68px);
+  font-weight: 200;
+
+  line-height: 1.16;
+  letter-spacing: -0.045em;
+
+  text-shadow:
+    0 4px 8px rgba(0, 0, 0, 0.85),
+    0 0 18px rgba(255, 255, 255, 0.12);
+}
+
+body.english .hero-title{
+    font-size: clamp(32px, 3.5vw, 58px);
+    line-height: 1.15;
+}
+
+body.english .hero-description p {
+  font-size: clamp(13px, 1.15vw, 18px);
+}
+
+body.english .hero-description .hero-lead {
+  font-size: clamp(15px, 1.35vw, 21px);
+}
+
+/* 説明文全体 */
+.hero-description {
+  line-height: 1.65;
+  max-width: 610px;
+  padding-top: 0px;
+
+  position: relative;
+
+  border-top: 1px solid rgba(82, 191, 255, 0.55);
+}
+
+
+/* 青い線の発光 */
+.hero-description::before {
+  content: "";
+
+  width: 70%;
+  height: 1px;
+
+  position: absolute;
+  top: -1px;
+  left: 0;
+
+  background: linear-gradient(90deg, rgba(43, 188, 255, 0.95), transparent);
+
+  box-shadow: 0 0 12px rgba(21, 167, 255, 0.7);
+}
+
+.hero-description p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.96);
+
   font-size: 1.2rem;
+
+  line-height: 1.75;
+  letter-spacing: 0.025em;
+
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.9);
 }
 
-h2 {
-  margin-left: 40px;
-  font-size: 2rem;
+.hero-description .hero-lead {
+  margin-top: 10px;
+  font-size: 1.3rem;
+  margin-bottom: 10px;
 }
 
-.privacy_container {
-  height: 300px;
-  width: 85vw;
-  border: 2px solid;
-  border-radius: 20px;
-  justify-self: center;
-  overflow-y: auto; /* ← はみ出たら縦スクロール */
-  overflow-x: hidden; /* ← 横は出ないように */
+/* ==============================
+   下部ダウンロードエリア
+============================== */
 
-  justify-self: center;
-  padding: 16px; /* ← 中身が枠にくっつかないように（好み） */
-  box-sizing: border-box; /* ← padding分で幅がはみ出さない */
+.download-section {
+  height: auto;
+  min-height: 0;
+  max-height: none;
+
+  position: relative;
+  z-index: 5;
+
+  display: grid;
+  grid-template-columns: 60% 40%;
+
+  overflow: hidden;
+
+  border: 1px solid var(--blue-border);
+
+  background: linear-gradient(
+    120deg,
+    rgba(11, 47, 78, 0.96),
+    rgba(3, 17, 34, 0.99) 58%
+  );
+
+  box-shadow:
+    0 0 20px rgba(12, 129, 211, 0.14),
+    inset 0 0 35px rgba(37, 157, 239, 0.07);
+
+  clip-path: polygon(
+    24px 0,
+    calc(100% - 24px) 0,
+    100% 24px,
+    100% calc(100% - 24px),
+    calc(100% - 24px) 100%,
+    24px 100%,
+    0 calc(100% - 24px),
+    0 24px
+  );
 }
 
-/* スマホ対応 */
-@media (max-width: 768px) {
-  .title_group {
+/* 内側の細いライン */
+.download-section::before {
+  content: "";
+
+  position: absolute;
+  inset: 8px;
+  z-index: 8;
+
+  border: 1px solid rgba(57, 173, 247, 0.1);
+
+  clip-path: polygon(
+    18px 0,
+    calc(100% - 18px) 0,
+    100% 18px,
+    100% calc(100% - 18px),
+    calc(100% - 18px) 100%,
+    18px 100%,
+    0 calc(100% - 18px),
+    0 18px
+  );
+
+  pointer-events: none;
+}
+
+/* 左側画像エリア */
+.download-visual {
+  height: 100%;
+  min-height: 0;
+
+  position: relative;
+  overflow: hidden;
+
+  display: flex;
+  align-items: center;
+
+  background:
+    radial-gradient(
+      circle at 30% 45%,
+      rgba(155, 220, 255, 0.44),
+      transparent 38%
+    ),
+    linear-gradient(120deg, rgba(95, 190, 255, 0.34), rgba(8, 47, 83, 0.48));
+}
+
+/* 左側の追加発光 */
+.visual-light {
+  width: 500px;
+  height: 500px;
+
+  position: absolute;
+  left: -80px;
+  top: -220px;
+
+  border-radius: 50%;
+
+  background: rgba(185, 231, 255, 0.34);
+  filter: blur(80px);
+}
+
+/* 下部左側の画像 */
+.haloa-image {
+    width: auto;
+    max-width: none;
+    height: 100%;
+
+    position: absolute;
+    top: 0;
+    left: 50%;
+
+    transform: translateX(-90%) translateY(10%) scale(3) ;
+
+    object-fit: initial;
+
+    z-index: 2;
+}
+
+/* 斜めの区切り */
+.diagonal-divider {
+  width: 230px;
+  height: 120%;
+
+  position: absolute;
+  top: -10%;
+  left: calc(60% - 130px);
+  z-index: 4;
+
+  background: linear-gradient(
+    135deg,
+    transparent 0 49%,
+    rgba(3, 18, 35, 0.94) 49.5% 100%
+  );
+
+  pointer-events: none;
+}
+
+/* 右側 */
+.download-content {
+  height: 100%;
+  min-height: 0;
+  padding: clamp(20px, 3vh, 40px) 42px;
+
+  position: relative;
+  z-index: 5;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  text-align: center;
+
+  background:
+    radial-gradient(
+      circle at 70% 50%,
+      rgba(20, 91, 146, 0.12),
+      transparent 50%
+    ),
+    linear-gradient(135deg, rgba(4, 20, 39, 0.86), rgba(2, 13, 27, 0.98));
+}
+
+/* 右側のドット模様 */
+.download-content::before {
+  content: "";
+
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+
+  opacity: 0.23;
+
+  background-image: radial-gradient(
+    circle,
+    rgba(68, 173, 245, 0.48) 1px,
+    transparent 1.5px
+  );
+
+  background-size: 15px 15px;
+
+  mask-image: linear-gradient(90deg, transparent, black 40%, black);
+}
+
+/* DOWNLOAD NOW */
+.download-label {
+  margin: 0 0 28px;
+
+  color: #65c3fa;
+
+  font-size: 14px;
+  font-weight: 800;
+
+  line-height: 1.5;
+  letter-spacing: 0.48em;
+
+  text-shadow: 0 0 12px rgba(47, 179, 255, 0.5);
+}
+
+/* ストアボタン */
+.store-buttons {
+  width: 100%;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 25px;
+}
+
+.store-link {
+  display: block;
+
+  border-radius: 10px;
+
+  transition:
+    transform 0.22s ease,
+    filter 0.22s ease;
+}
+
+.store-link img {
+  width: auto;
+  height: clamp(52px, 5vw, 72px);
+
+  object-fit: contain;
+
+  border-radius: 8px;
+
+  filter: drop-shadow(0 8px 12px rgba(0, 0, 0, 0.45));
+}
+
+.store-link:hover {
+  transform: translateY(-5px) scale(1.025);
+
+  filter: brightness(1.1) drop-shadow(0 0 12px rgba(71, 184, 255, 0.22));
+}
+
+.store-link:active {
+  transform: translateY(-1px) scale(0.99);
+}
+
+/* ==============================
+   タブレット
+============================== */
+
+@media (max-width: 1100px) {
+  .hero-content {
+    width: 56%;
+    margin-left: 48px;
+  }
+
+  .download-section {
+    grid-template-columns: 55% 45%;
+  }
+
+  .diagonal-divider {
+    left: calc(55% - 130px);
+  }
+
+  .store-buttons {
+    flex-direction: column;
+    gap: 14px;
+  }
+
+  .store-link img {
+    height: 58px;
+  }
+}
+
+/* ==============================
+   スマートフォン
+============================== */
+
+@media (max-width: 760px) {
+
+  /* ==============================
+     ページ全体
+  ============================== */
+
+  .landing-page {
+    width: 100%;
+    height: auto;
+    min-height: 100vh;
+    padding: 0;
+
+    display: block;
+    overflow: visible;
+
+    background-size: 35px 35px;
+  }
+
+  .landing-page::before {
+    display: none;
+  }
+
+
+  /* ==============================
+     上部メインビジュアル
+  ============================== */
+
+  .hero-section {
+    width: 100%;
+    height: auto;
+    min-height: 720px;
+
+    align-items: flex-end;
+
+    border-left: 0;
+  }
+
+  .hero-background {
+    width: 100%;
+    height: 55%;
+
+    object-fit: cover;
+    object-position: center top;
+  }
+
+  .hero-overlay {
+    background: linear-gradient(
+      180deg,
+      rgba(1, 8, 20, 0.02) 0%,
+      rgba(1, 8, 20, 0.16) 32%,
+      rgba(1, 8, 20, 0.9) 54%,
+      rgba(1, 8, 20, 1) 72%,
+      rgba(1, 8, 20, 1) 100%
+    );
+  }
+
+  .hero-content {
+    width: 100%;
+    margin: 0;
+    padding: 310px 24px 45px;
+
+    text-align: left;
+  }
+
+  .game-name {
+    margin-bottom: 18px;
+
+    font-size: 11px;
+    letter-spacing: 0.28em;
+  }
+
+  .hero-title {
+    margin-bottom: 24px;
+
+    font-size:2.5rem;
+    line-height: 1.22;
+  }
+
+  body.english .hero-title {
+    font-size: clamp(34px, 10.5vw, 50px);
+    line-height: 1.18;
+  }
+
+  .hero-description {
+    padding-top: 20px;
+  }
+
+  .hero-description p,
+  body.english .hero-description p {
+    margin-bottom: 11px;
+
+    font-size: 15px;
+    line-height: 1.65;
+  }
+
+  .hero-description .hero-lead,
+  body.english .hero-description .hero-lead {
+    margin-bottom: 19px;
+
+    font-size: 17px;
+  }
+
+  .mobile-break {
+    display: none;
+  }
+
+
+  /* ==============================
+     ダウンロードエリア全体
+  ============================== */
+
+  .download-section {
+    width: calc(100% - 28px);
+    height: auto;
+    min-height: 0;
+    margin: 14px;
+
+    position: relative;
+
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: 310px auto;
+
+    overflow: hidden;
+
+    border: 1px solid rgba(45, 177, 255, 0.72);
+
+    background: #031224;
+
+    box-shadow:
+      0 0 20px rgba(12, 129, 211, 0.18),
+      inset 0 0 35px rgba(37, 157, 239, 0.07);
+
+    clip-path: polygon(
+      18px 0,
+      calc(100% - 18px) 0,
+      100% 18px,
+      100% calc(100% - 18px),
+      calc(100% - 18px) 100%,
+      18px 100%,
+      0 calc(100% - 18px),
+      0 18px
+    );
+  }
+
+  /* 外枠の内側ライン */
+  .download-section::before {
+    content: "";
+
+    display: block;
+
+    position: absolute;
+    inset: 7px;
+    z-index: 20;
+
+    border: 1px solid rgba(57, 173, 247, 0.16);
+
+    clip-path: polygon(
+      13px 0,
+      calc(100% - 13px) 0,
+      100% 13px,
+      100% calc(100% - 13px),
+      calc(100% - 13px) 100%,
+      13px 100%,
+      0 calc(100% - 13px),
+      0 13px
+    );
+
+    pointer-events: none;
+  }
+
+
+  /* ==============================
+     上側：キャラクター画像
+  ============================== */
+
+  .download-visual {
+    width: 100%;
+    height: 310px;
+    min-height: 0;
+
+    position: relative;
+    z-index: 1;
+
+    display: block;
+    overflow: hidden;
+
+    background: #071b31;
+
+    /*
+      左側の下端は235px、
+      右側の下端は310px。
+      高低差75pxの斜め。
+    */
+    clip-path: polygon(
+      0 0,
+      100% 0,
+      100% 100%,
+      0 calc(100% - 75px)
+    );
+  }
+
+  .visual-light {
+    width: 380px;
+    height: 380px;
+
+    left: -100px;
+    top: -130px;
+    z-index: 2;
+
+    pointer-events: none;
+  }
+
+  /* 画像を枠いっぱいに敷き詰める */
+  .haloa-image {
+    width: 100%;
+    max-width: none;
+    height: 100%;
+
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+
+    object-fit: cover;
+    object-position: center center;
+
+    transform: scale(2);
+  }
+
+
+  /* ==============================
+     斜めの青い発光ライン
+  ============================== */
+
+  .diagonal-divider {
+    display: block;
+
+    width: 100%;
+    height: 78px;
+
+    position: absolute;
+    top: 232px;
+    left: 0;
+    z-index: 8;
+
+    /*
+      画像と同じく、左から右へ75px下がる形。
+      回転は使わないので角度が完全に一致する。
+    */
+    clip-path: polygon(
+      0 0,
+      100% 75px,
+      100% 78px,
+      0 3px
+    );
+
+    background: rgba(70, 193, 255, 0.98);
+
+    filter:
+      drop-shadow(0 0 6px rgba(40, 186, 255, 0.95))
+      drop-shadow(0 0 14px rgba(40, 186, 255, 0.5));
+
+    transform: none;
+
+    pointer-events: none;
+  }
+
+
+  /* ==============================
+     下側：ダウンロードパネル
+  ============================== */
+
+  .download-content {
+    width: 100%;
+    height: auto;
+    min-height: 350px;
+
+    /*
+      画像と75px重ねる
+    */
+    margin-top: -75px;
+    padding: 135px 22px 48px;
+
+    position: relative;
+    z-index: 3;
+
+    display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 6px;
-    padding: 10px 12px;
-  }
+    justify-content: flex-start;
 
-  /* 右固定をやめて、普通に表示 */
-  .information_group {
-    position: static;
-    transform: none;
     text-align: center;
-    font-size: 0.9rem;
-    line-height: 1.3;
+
+    /*
+      左上は0px、右上は75px。
+      画像・青い線と同じ角度。
+    */
+    clip-path: polygon(
+      0 0,
+      100% 75px,
+      100% 100%,
+      0 100%
+    );
+
+    background:
+      radial-gradient(
+        circle at 75% 28%,
+        rgba(20, 91, 146, 0.2),
+        transparent 52%
+      ),
+      linear-gradient(
+        145deg,
+        rgba(4, 20, 39, 0.97),
+        rgba(2, 13, 27, 1)
+      );
   }
 
-  /* メールが長いので折り返し許可 */
-  .information_item {
-    margin: 0;
-    word-break: break-word; /* 長い文字列でも折り返す */
+  .download-content::before {
+    inset: 0;
+    opacity: 0.25;
+
+    mask-image: linear-gradient(
+      180deg,
+      transparent,
+      black 25%,
+      black
+    );
+
+    -webkit-mask-image: linear-gradient(
+      180deg,
+      transparent,
+      black 25%,
+      black
+    );
   }
 
-  /* タイトルも少し小さく */
-  .title {
-    margin: 0;
-    font-size: 2rem;
+  .download-label {
+    margin: 0 0 22px;
+
+    position: relative;
+    z-index: 2;
+
+    font-size: 12px;
+    letter-spacing: 0.35em;
   }
 
-  /* fixedヘッダーの分、本文を下げる（必要なら調整） */
-  body {
-    padding-top: 150px;
-  }
-
-  .information_image_container {
-    flex-direction: column; /* 横並び→縦並び */
-    gap: 16px;
-    padding: 0 12px;
-  }
-
-  .image {
-    width: 100%; /* 画面いっぱい */
-    max-width: 420px; /* 大きすぎ防止 */
-    margin: 0 auto;
-    display: block;
-  }
-
-  .discription_container {
+  .store-buttons {
     width: 100%;
+
+    position: relative;
+    z-index: 2;
+
+    flex-direction: column;
+    gap: 14px;
   }
 
-  h2 {
-    margin-left: 12px;
+  .store-link img {
+    width: auto;
+    height: 58px;
   }
 
-  .privacy_container {
-    width: calc(100% - 24px);
-    height: 320px; /* 好みで */
-    margin: 0 12px 24px 12px;
+
+  /* ==============================
+     Privacy Policy
+  ============================== */
+
+  .privacy-policy-button {
+    right: 16px;
+    bottom: 12px;
+
+    font-size: 10px;
+  }
+
+  .privacy-modal-overlay {
+    padding: 16px;
+  }
+
+  .privacy-modal {
+    max-height: 82vh;
+    padding: 34px 24px 30px;
+  }
+
+  .privacy-modal-close {
+    top: 14px;
+    right: 14px;
+  }
+
+  .privacy-modal h2 {
+    margin-bottom: 26px;
+
+    font-size: 25px;
+  }
+
+  .privacy-modal-content p {
+    font-size: 13px;
+    line-height: 1.85;
+  }
+}
+
+/* ==============================
+   小さいスマートフォン
+============================== */
+
+@media (max-width: 420px) {
+  .hero-content {
+    padding-left: 19px;
+    padding-right: 19px;
+  }
+
+  .hero-title {
+    font-size: 39px;
+  }
+
+  .hero-description p {
+    font-size: 14px;
+  }
+
+  .download-section {
+    width: calc(100% - 20px);
+    margin: 10px;
+
+    grid-template-rows: 270px auto;
+  }
+
+  .download-visual {
+    height: 270px;
+
+    /*
+      小さい画面でも高低差は同じ75px
+    */
+    clip-path: polygon(
+      0 0,
+      100% 0,
+      100% 100%,
+      0 calc(100% - 75px)
+    );
+  }
+
+  .diagonal-divider {
+    top: 192px;
+  }
+
+  .download-content {
+    min-height: 325px;
+
+    margin-top: -75px;
+    padding: 125px 18px 42px;
+
+    clip-path: polygon(
+      0 0,
+      100% 75px,
+      100% 100%,
+      0 100%
+    );
+  }
+
+  .store-link img {
+    height: 53px;
+  }
+}
+
+/* ==============================
+   動きを減らす設定への配慮
+============================== */
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .store-link {
+    transition: none;
+  }
+}
+
+/* ==============================
+   ページ読み込み時のアニメーション
+============================== */
+
+/*
+  登場する順番
+
+  0.00秒：Hero背景画像
+  0.75秒：ゲーム名
+  0.92秒：Heroタイトル
+  1.09秒：Hero説明文
+  1.55秒：Downloadセクション
+  2.15秒：App Storeボタン
+  2.30秒：Google Playボタン
+*/
+
+
+/* ==============================
+   1. Hero背景画像
+============================== */
+
+.hero-background {
+  transform-origin: center center;
+
+  animation:
+    hero-image-reveal 1.15s
+    cubic-bezier(0.22, 1, 0.36, 1)
+    0s
+    both;
+}
+
+@keyframes hero-image-reveal {
+  0% {
+    opacity: 0;
+    transform:
+      translateY(22px)
+      scale(1.08);
+
+    filter:
+      brightness(0.55)
+      blur(5px);
+  }
+
+  45% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 1;
+    transform:
+      translateY(0)
+      scale(1);
+
+    filter:
+      brightness(1)
+      blur(0);
+  }
+}
+
+
+/* Hero画像の上にある暗幕・発光も少し遅れて表示 */
+
+.hero-overlay,
+.blue-glow,
+.orange-glow {
+  animation:
+    hero-effect-reveal 0.9s
+    ease-out
+    0.18s
+    both;
+}
+
+@keyframes hero-effect-reveal {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+
+/* ==============================
+   2. Heroセクションの文章
+============================== */
+
+/* 最初は文章を非表示にして少し下へ移動 */
+
+.game-name,
+.hero-title,
+.hero-description {
+  opacity: 0;
+
+  animation:
+    hero-text-reveal 0.75s
+    cubic-bezier(0.22, 1, 0.36, 1)
+    both;
+}
+
+
+/* ゲーム名 */
+
+.game-name {
+  animation-delay: 0.75s;
+}
+
+
+/* 大見出し */
+
+.hero-title {
+  animation-delay: 0.92s;
+}
+
+
+/* 説明文 */
+
+.hero-description {
+  animation-delay: 1.09s;
+}
+
+
+@keyframes hero-text-reveal {
+  0% {
+    opacity: 0;
+
+    transform:
+      translateY(35px)
+      scale(0.985);
+
+    filter: blur(4px);
+  }
+
+  100% {
+    opacity: 1;
+
+    transform:
+      translateY(0)
+      scale(1);
+
+    filter: blur(0);
+  }
+}
+
+
+/* ==============================
+   3. Downloadセクション
+============================== */
+
+.download-section {
+  opacity: 0;
+
+  animation:
+    download-section-reveal 0.85s
+    cubic-bezier(0.22, 1, 0.36, 1)
+    1.55s
+    both;
+}
+
+@keyframes download-section-reveal {
+  0% {
+    opacity: 0;
+
+    transform:
+      translateY(55px)
+      scale(0.985);
+
+    filter: blur(4px);
+  }
+
+  100% {
+    opacity: 1;
+
+    transform:
+      translateY(0)
+      scale(1);
+
+    filter: blur(0);
+  }
+}
+
+
+/* ==============================
+   4. ストアボタンがカチッとはまる
+============================== */
+
+/*
+  .store-link自体ではなく、中の画像を動かしています。
+
+  .store-linkを動かしてしまうと、
+  既存のhoverアニメーションと競合するためです。
+*/
+
+.store-link img {
+  opacity: 0;
+
+  transform-origin: center center;
+
+  animation:
+    store-button-snap 0.58s
+    cubic-bezier(0.2, 0.9, 0.3, 1.35)
+    both;
+}
+
+
+/* 1つ目：App Store */
+
+.store-link:nth-child(1) img {
+  animation-delay: 2.15s;
+}
+
+
+/* 2つ目：Google Play */
+
+.store-link:nth-child(2) img {
+  animation-delay: 2.30s;
+}
+
+
+@keyframes store-button-snap {
+  0% {
+    opacity: 0;
+
+    transform:
+      translateY(24px)
+      scale(0.55);
+  }
+
+  55% {
+    opacity: 1;
+
+    transform:
+      translateY(-3px)
+      scale(1.1);
+  }
+
+  72% {
+    transform:
+      translateY(1px)
+      scale(0.96);
+  }
+
+  86% {
+    transform:
+      translateY(0)
+      scale(1.025);
+  }
+
+  100% {
+    opacity: 1;
+
+    transform:
+      translateY(0)
+      scale(1);
+  }
+}
+
+
+/* ボタンが登場した瞬間の軽い発光 */
+
+.store-link:nth-child(1) {
+  animation:
+    store-button-glow 0.7s
+    ease-out
+    2.15s
+    both;
+}
+
+.store-link:nth-child(2) {
+  animation:
+    store-button-glow 0.7s
+    ease-out
+    2.30s
+    both;
+}
+
+@keyframes store-button-glow {
+  0% {
+    filter:
+      brightness(1)
+      drop-shadow(0 0 0 rgba(69, 186, 255, 0));
+  }
+
+  55% {
+    filter:
+      brightness(1.2)
+      drop-shadow(0 0 18px rgba(69, 186, 255, 0.55));
+  }
+
+  100% {
+    filter:
+      brightness(1)
+      drop-shadow(0 0 0 rgba(69, 186, 255, 0));
+  }
+}
+
+
+/* ==============================
+   動きを減らす設定への配慮
+============================== */
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-background,
+  .hero-overlay,
+  .blue-glow,
+  .orange-glow,
+  .game-name,
+  .hero-title,
+  .hero-description,
+  .download-section,
+  .store-link,
+  .store-link img {
+    opacity: 1;
+
+    animation: none;
+    transform: none;
+    filter: none;
+  }
+}
+
+
+/* ==============================
+   Privacy Policy
+============================== */
+
+/* 左下のPrivacy Policyボタン */
+.privacy-policy-button {
+  margin: 0;
+  padding: 0;
+
+  position: fixed;
+  right: 24px;
+  bottom: 14px;
+  z-index: 50;
+
+  color: rgba(255, 255, 255, 0.72);
+  background: transparent;
+  border: 0;
+
+  font-family: inherit;
+  font-size: 11px;
+  font-weight: 300;
+  letter-spacing: 0.12em;
+  line-height: 1.5;
+
+  cursor: pointer;
+
+  transition:
+    color 0.2s ease,
+    text-shadow 0.2s ease,
+    opacity 0.2s ease;
+}
+
+.privacy-policy-button:hover {
+  color: #ffffff;
+
+  text-shadow:
+    0 0 10px rgba(83, 193, 255, 0.65);
+}
+
+.privacy-policy-button:focus-visible {
+  outline: 1px solid rgba(89, 194, 255, 0.9);
+  outline-offset: 5px;
+}
+
+
+/* モーダルの外側 */
+.privacy-modal-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+
+  padding: 28px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  visibility: hidden;
+  opacity: 0;
+
+  background: rgba(0, 5, 14, 0.78);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+
+  transition:
+    opacity 0.28s ease,
+    visibility 0.28s ease;
+}
+
+
+/* 開いている状態 */
+.privacy-modal-overlay.is-open {
+  visibility: visible;
+  opacity: 1;
+}
+
+
+/* モーダル本体 */
+.privacy-modal {
+  width: min(720px, 100%);
+  max-height: min(78vh, 720px);
+  padding: 42px 46px;
+
+  position: relative;
+
+  overflow-y: auto;
+
+  color: #ffffff;
+
+  border: 1px solid rgba(65, 183, 255, 0.55);
+
+  background:
+    radial-gradient(
+      circle at 15% 0%,
+      rgba(30, 129, 200, 0.18),
+      transparent 38%
+    ),
+    linear-gradient(
+      145deg,
+      rgba(5, 24, 44, 0.98),
+      rgba(2, 10, 23, 0.99)
+    );
+
+  box-shadow:
+    0 30px 80px rgba(0, 0, 0, 0.65),
+    0 0 30px rgba(21, 150, 230, 0.13),
+    inset 0 0 30px rgba(43, 160, 230, 0.05);
+
+  clip-path: polygon(
+    18px 0,
+    calc(100% - 18px) 0,
+    100% 18px,
+    100% calc(100% - 18px),
+    calc(100% - 18px) 100%,
+    18px 100%,
+    0 calc(100% - 18px),
+    0 18px
+  );
+
+  opacity: 0;
+
+  transform:
+    translateY(35px)
+    scale(0.97);
+
+  transition:
+    opacity 0.35s ease,
+    transform 0.35s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+
+/* モーダルが開いたとき */
+.privacy-modal-overlay.is-open .privacy-modal {
+  opacity: 1;
+
+  transform:
+    translateY(0)
+    scale(1);
+}
+
+
+/* 閉じるボタン */
+.privacy-modal-close {
+  width: 38px;
+  height: 38px;
+  padding: 0;
+
+  position: absolute;
+  top: 18px;
+  right: 20px;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  color: rgba(255, 255, 255, 0.72);
+  background: rgba(255, 255, 255, 0.03);
+
+  border: 1px solid rgba(85, 186, 245, 0.3);
+  border-radius: 50%;
+
+  font-family: Arial, sans-serif;
+  font-size: 25px;
+  font-weight: 200;
+  line-height: 1;
+
+  cursor: pointer;
+
+  transition:
+    color 0.2s ease,
+    background 0.2s ease,
+    border-color 0.2s ease,
+    transform 0.2s ease;
+}
+
+.privacy-modal-close:hover {
+  color: #ffffff;
+  background: rgba(61, 177, 244, 0.12);
+  border-color: rgba(85, 196, 255, 0.75);
+
+  transform: rotate(90deg);
+}
+
+.privacy-modal-close:focus-visible {
+  outline: 1px solid rgba(89, 194, 255, 0.9);
+  outline-offset: 3px;
+}
+
+
+/* 上部の英字ラベル */
+.privacy-modal-label {
+  margin: 0 0 12px;
+
+  color: #6bc9ff;
+
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.42em;
+
+  text-shadow: 0 0 10px rgba(50, 178, 255, 0.45);
+}
+
+
+/* タイトル */
+.privacy-modal h2 {
+  margin: 0 50px 32px 0;
+
+  font-size: clamp(24px, 3vw, 36px);
+  font-weight: 400;
+  letter-spacing: 0.04em;
+}
+
+
+/* 本文 */
+.privacy-modal-content {
+  padding-top: 24px;
+
+  border-top: 1px solid rgba(71, 181, 245, 0.35);
+}
+
+.privacy-modal-content section {
+  margin-bottom: 28px;
+}
+
+.privacy-modal-content section:last-child {
+  margin-bottom: 0;
+}
+
+.privacy-modal-content h3 {
+  margin: 0 0 10px;
+
+  color: rgba(128, 211, 255, 0.95);
+
+  font-size: 15px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+}
+
+.privacy-modal-content p {
+  margin: 0;
+
+  color: rgba(255, 255, 255, 0.78);
+
+  font-size: 14px;
+  font-weight: 300;
+
+  line-height: 1.9;
+  letter-spacing: 0.035em;
+}
+
+
+/* モーダル表示中は背景をスクロールさせない */
+body.modal-open {
+  overflow: hidden;
+}
+
+
+/* スマートフォン */
+@media (max-width: 760px) {
+  .privacy-policy-button {
+    right: 16px;
+    bottom: 12px;
+
+    font-size: 10px;
+  }
+
+  .privacy-modal-overlay {
+    padding: 16px;
+  }
+
+  .privacy-modal {
+    max-height: 82vh;
+    padding: 34px 24px 30px;
+  }
+
+  .privacy-modal-close {
+    top: 14px;
+    right: 14px;
+  }
+
+  .privacy-modal h2 {
+    margin-bottom: 26px;
+
+    font-size: 25px;
+  }
+
+  .privacy-modal-content p {
+    font-size: 13px;
+    line-height: 1.85;
+  }
+}
+
+
+/* 動きを減らす設定 */
+@media (prefers-reduced-motion: reduce) {
+  .privacy-modal-overlay,
+  .privacy-modal,
+  .privacy-modal-close,
+  .privacy-policy-button {
+    transition: none;
   }
 }
